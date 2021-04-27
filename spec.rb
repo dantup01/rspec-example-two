@@ -25,6 +25,10 @@ class Person
   def full_name
     [@first_name, @middle_name, @last_name].compact.join(" ")
   end
+
+  def full_name_with_middle_initial
+    [@first_name, @middle_name ? @middle_name[0] : nil, @last_name].compact.join(" ")
+  end
 end
 
 RSpec.describe Person do
@@ -48,7 +52,17 @@ RSpec.describe Person do
     end
   end
 
-  describe "#full_name_with_middle_initial"
+  describe "#full_name_with_middle_initial" do
+    it "show full name with middle initial and spaces" do
+      person = Person.new(
+        first_name: "Daniel",
+        middle_name: "Mark",
+        last_name: "Tuppen"
+      )
+
+      expect(person.full_name_with_middle_initial).to eq("Daniel M Tuppen")
+    end
+  end
 
   describe "#initials"
 end
